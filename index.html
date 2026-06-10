@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lau.Studyy</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --creme:   #FDF6EE;
+      --sand:    #F2D9C0;
+      --brun:    #5C3317;
+      --brun-mid:#8B4513;
+      --brun-light: #C4956A;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { background: var(--creme); color: var(--brun); font-family: 'Inter', sans-serif; font-weight: 300; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(253,246,238,0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--sand);
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 14px 28px;
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.4rem;
+      color: var(--brun);
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 24px; }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--brun-mid);
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--brun); }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: center;
+      text-align: center;
+      padding: 100px 24px 60px;
+      background: linear-gradient(160deg, var(--creme) 60%, var(--sand) 100%);
+    }
+    .hero-eyebrow {
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--brun-light);
+      margin-bottom: 20px;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(3.5rem, 12vw, 8rem);
+      color: var(--brun);
+      line-height: 1;
+    }
+    .hero-title span {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: rise 0.8s cubic-bezier(.22,.8,.36,1) forwards;
+    }
+    @keyframes rise { to { opacity: 1; transform: translateY(0); } }
+    .hero-desc {
+      max-width: 480px;
+      margin: 28px auto 0;
+      font-size: 0.95rem;
+      line-height: 1.75;
+      color: var(--brun-mid);
+      opacity: 0;
+      animation: fadeIn 0.6s 1.1s forwards;
+    }
+    .hero-cta {
+      margin-top: 40px;
+      display: flex; gap: 14px; flex-wrap: wrap; justify-content: center;
+      opacity: 0;
+      animation: fadeIn 0.6s 1.3s forwards;
+    }
+    @keyframes fadeIn { to { opacity: 1; } }
+    .btn-primary {
+      background: var(--brun); color: var(--creme);
+      padding: 13px 32px; border-radius: 40px;
+      text-decoration: none; font-size: 0.88rem; letter-spacing: 0.05em;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-primary:hover { background: var(--brun-mid); transform: translateY(-2px); }
+    .btn-secondary {
+      background: transparent; color: var(--brun);
+      padding: 13px 32px; border-radius: 40px;
+      border: 1.5px solid var(--brun);
+      text-decoration: none; font-size: 0.88rem; letter-spacing: 0.05em;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-secondary:hover { background: var(--sand); transform: translateY(-2px); }
+
+    /* SECTIONS */
+    section { padding: 80px 24px; }
+    .section-inner { max-width: 960px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.7rem; letter-spacing: 0.25em;
+      text-transform: uppercase; color: var(--brun-light); margin-bottom: 8px;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      color: var(--brun); margin-bottom: 40px;
+    }
+    .divider { width: 48px; height: 2px; background: var(--brun-light); margin: 16px 0 40px; }
+
+    /* VIDÉOS */
+    #videos { background: var(--sand); }
+    .videos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 20px;
+    }
+    .video-card {
+      background: var(--creme); border-radius: 14px; overflow: hidden;
+      text-decoration: none; color: var(--brun);
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 2px 8px rgba(92,51,23,0.08);
+    }
+    .video-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(92,51,23,0.14); }
+    .video-thumb-placeholder {
+      width: 100%; aspect-ratio: 16/9;
+      background: var(--sand);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem;
+    }
+    .video-info { padding: 14px 16px 18px; }
+    .video-title { font-family: 'Playfair Display', serif; font-size: 0.95rem; line-height: 1.4; margin-bottom: 6px; }
+    .video-meta { font-size: 0.75rem; color: var(--brun-light); }
+    .videos-more { text-align: center; margin-top: 36px; }
+
+    /* RÉSEAUX */
+    #reseaux { background: var(--creme); }
+    .reseaux-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+    }
+    .reseau-card {
+      background: var(--sand); border-radius: 14px; padding: 28px 20px;
+      text-align: center; text-decoration: none; color: var(--brun);
+      transition: background 0.2s, transform 0.2s;
+    }
+    .reseau-card:hover { background: var(--brun); color: var(--creme); transform: translateY(-3px); }
+    .reseau-icon { font-size: 2rem; margin-bottom: 10px; }
+    .reseau-name { font-family: 'Playfair Display', serif; font-size: 1rem; }
+    .reseau-handle { font-size: 0.78rem; opacity: 0.7; margin-top: 4px; }
+
+    /* FICHES */
+    #fiches { background: var(--sand); }
+    .fiches-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 20px;
+    }
+    .fiche-card {
+      background: var(--creme); border-radius: 14px; padding: 28px 20px;
+      text-align: center; box-shadow: 0 2px 8px rgba(92,51,23,0.07);
+      transition: transform 0.2s;
+    }
+    .fiche-card:hover { transform: translateY(-3px); }
+    .fiche-emoji { font-size: 2.2rem; margin-bottom: 12px; }
+    .fiche-title { font-family: 'Playfair Display', serif; font-size: 1rem; margin-bottom: 6px; }
+    .fiche-matiere { font-size: 0.75rem; color: var(--brun-light); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 14px; }
+    .fiche-prix { font-size: 1.1rem; font-weight: 500; color: var(--brun); margin-bottom: 16px; }
+    .btn-fiche {
+      display: inline-block; background: var(--brun); color: var(--creme);
+      padding: 9px 22px; border-radius: 30px; text-decoration: none;
+      font-size: 0.82rem; transition: background 0.2s;
+    }
+    .btn-fiche:hover { background: var(--brun-mid); }
+    .coming-soon { text-align: center; padding: 20px; font-size: 0.85rem; color: var(--brun-light); font-style: italic; }
+
+    /* FOOTER */
+    footer {
+      background: var(--brun); color: var(--sand);
+      text-align: center; padding: 36px 24px; font-size: 0.82rem;
+    }
+    footer a { color: var(--brun-light); text-decoration: none; }
+    .footer-logo {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: 1.6rem; color: var(--creme); margin-bottom: 10px;
+    }
+
+    @media (max-width: 600px) {
+      .nav-links { gap: 14px; }
+      .nav-links a { font-size: 0.75rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="#hero" class="nav-logo">Lau.Studyy</a>
+    <div class="nav-links">
+      <a href="#videos">Vidéos</a>
+      <a href="#reseaux">Réseaux</a>
+      <a href="#fiches">Fiches</a>
+    </div>
+  </nav>
+
+  <section id="hero">
+    <p class="hero-eyebrow">Étudiante en comptabilité</p>
+    <h1 class="hero-title">
+      <span style="animation-delay:0.1s">L</span><span style="animation-delay:0.15s">a</span><span style="animation-delay:0.2s">u</span><span style="animation-delay:0.25s">.</span><span style="animation-delay:0.3s">S</span><span style="animation-delay:0.35s">t</span><span style="animation-delay:0.4s">u</span><span style="animation-delay:0.45s">d</span><span style="animation-delay:0.5s">y</span><span style="animation-delay:0.55s">y</span>
+    </h1>
+    <p class="hero-desc">
+      Je partage mes méthodes, mes révisions et mes conseils pour réussir le DCG et le BTS CG — sans te noyer.
+    </p>
+    <div class="hero-cta">
+      <a href="#videos" class="btn-primary">Voir les vidéos</a>
+      <a href="#fiches" class="btn-secondary">Mes fiches</a>
+    </div>
+  </section>
+
+  <section id="videos">
+    <div class="section-inner">
+      <p class="section-label">YouTube</p>
+      <h2 class="section-title">Dernières vidéos</h2>
+      <div class="divider"></div>
+      <div class="videos-grid">
+        <a href="https://youtube.com/@lau.studyy" target="_blank" class="video-card">
+          <div class="video-thumb-placeholder">🎙️</div>
+          <div class="video-info">
+            <p class="video-title">Je vous présente le BTS Comptabilité et Gestion</p>
+            <p class="video-meta">607 vues · il y a 2 jours</p>
+          </div>
+        </a>
+        <a href="https://youtube.com/@lau.studyy" target="_blank" class="video-card">
+          <div class="video-thumb-placeholder">🎙️</div>
+          <div class="video-info">
+            <p class="video-title">J'aime bien mon nouveau cab — Vlog</p>
+            <p class="video-meta">287 vues · il y a 6 jours</p>
+          </div>
+        </a>
+        <a href="https://youtube.com/@lau.studyy" target="_blank" class="video-card">
+          <div class="video-thumb-placeholder">🎙️</div>
+          <div class="video-info">
+            <p class="video-title">Ma méthode pour le Droit Fiscal — DCG</p>
+            <p class="video-meta">305 vues · il y a 9 jours</p>
+          </div>
+        </a>
+        <a href="https://youtube.com/@lau.studyy" target="_blank" class="video-card">
+          <div class="video-thumb-placeholder">🎙️</div>
+          <div class="video-info">
+            <p class="video-title">Mes astuces pour le Droit Social du DCG</p>
+            <p class="video-meta">635 vues · il y a 11 jours</p>
+          </div>
+        </a>
+      </div>
+      <div class="videos-more">
+        <a href="https://youtube.com/@lau.studyy" target="_blank" class="btn-secondary">Voir toutes les vidéos →</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="reseaux">
+    <div class="section-inner">
+      <p class="section-label">Communauté</p>
+      <h2 class="section-title">Me retrouver</h2>
+      <div class="divider"></div>
+      <div class="reseaux-grid">
+        <a href="https://youtube.com/@lau.studyy" target="_blank" class="reseau-card">
+          <div class="reseau-icon">▶️</div>
+          <p class="reseau-name">YouTube</p>
+          <p class="reseau-handle">@lau.studyy</p>
+        </a>
+        <a href="https://www.instagram.com/lau.studyy" target="_blank" class="reseau-card">
+          <div class="reseau-icon">📸</div>
+          <p class="reseau-name">Instagram</p>
+          <p class="reseau-handle">@lau.studyy</p>
+        </a>
+        <a href="https://www.tiktok.com/@lau.studyy" target="_blank" class="reseau-card">
+          <div class="reseau-icon">🎵</div>
+          <p class="reseau-name">TikTok</p>
+          <p class="reseau-handle">@lau.studyy</p>
+        </a>
+        <a href="#" class="reseau-card">
+          <div class="reseau-icon">💼</div>
+          <p class="reseau-name">LinkedIn</p>
+          <p class="reseau-handle">Bientôt disponible</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="fiches">
+    <div class="section-inner">
+      <p class="section-label">Boutique</p>
+      <h2 class="section-title">Fiches de révision</h2>
+      <div class="divider"></div>
+      <div class="fiches-grid">
+        <div class="fiche-card">
+          <div class="fiche-emoji">📘</div>
+          <p class="fiche-title">Droit Fiscal</p>
+          <p class="fiche-matiere">DCG · UE4</p>
+          <p class="fiche-prix">9,90 €</p>
+          <a href="https://www.instagram.com/lau.studyy" target="_blank" class="btn-fiche">Commander</a>
+        </div>
+        <div class="fiche-card">
+          <div class="fiche-emoji">📗</div>
+          <p class="fiche-title">Droit Social</p>
+          <p class="fiche-matiere">DCG · UE3</p>
+          <p class="fiche-prix">9,90 €</p>
+          <a href="https://www.instagram.com/lau.studyy" target="_blank" class="btn-fiche">Commander</a>
+        </div>
+        <div class="fiche-card">
+          <div class="fiche-emoji">📙</div>
+          <p class="fiche-title">Droit des Sociétés</p>
+          <p class="fiche-matiere">DCG · UE2</p>
+          <p class="fiche-prix">9,90 €</p>
+          <a href="https://www.instagram.com/lau.studyy" target="_blank" class="btn-fiche">Commander</a>
+        </div>
+        <div class="fiche-card">
+          <div class="fiche-emoji">📒</div>
+          <p class="fiche-title">BTS CG — Pack complet</p>
+          <p class="fiche-matiere">BTS · Toutes matières</p>
+          <p class="fiche-prix">19,90 €</p>
+          <a href="https://www.instagram.com/lau.studyy" target="_blank" class="btn-fiche">Commander</a>
+        </div>
+      </div>
+      <p class="coming-soon">Les commandes se font via Instagram · @lau.studyy</p>
+    </div>
+  </section>
+
+  <footer>
+    <p class="footer-logo">Lau.Studyy</p>
+    <p>© 2026 Lau.Studyy · Fait avec ❤️</p>
+    <p style="margin-top:8px">
+      <a href="https://youtube.com/@lau.studyy">YouTube</a> ·
+      <a href="https://www.instagram.com/lau.studyy">Instagram</a> ·
+      <a href="https://www.tiktok.com/@lau.studyy">TikTok</a>
+    </p>
+  </footer>
+
+</body>
+</html>
